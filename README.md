@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="PlanetSight_logo.png" alt="PlanetSight Logo" width="200"/>
+</div>
+
 # 🌌 PlanetSight
 
 **An AI-powered exoplanet classification system that predicts whether Kepler Objects of Interest (KOI) are confirmed planets, planet candidates, or false positives.**
@@ -223,17 +227,34 @@ To retrain or modify the model:
 
 ## 🚀 Deployment
 
-The project includes a `vercel.json` configuration for easy deployment to Vercel:
+### Vercel Deployment
+
+The project is configured for deployment to Vercel with both Node.js and Python support:
 
 ```bash
 # Deploy to Vercel
 vercel --prod
 ```
 
-For other platforms, ensure:
+**Key Deployment Features:**
+- **Hybrid Runtime**: Uses Node.js for static files and Python for ML predictions
+- **Python API**: `/api/analyze` endpoint runs on Vercel's Python runtime
+- **Automatic Dependencies**: Python packages installed from `requirements.txt`
+- **Model Files**: ML models are included in the deployment
+
+**Deployment Configuration:**
+- `vercel.json`: Configures Python runtime for the analyze endpoint
+- `requirements.txt`: Specifies Python dependencies (joblib, pandas, scikit-learn)
+- `api/analyze.py`: Python-based prediction endpoint for Vercel
+- `api/analyze.js`: Node.js fallback for local development
+
+### Other Platforms
+
+For deployment to other platforms, ensure:
 - Node.js runtime is available
 - Python dependencies are installed
 - Model files are accessible
+- Both `/api/analyze.js` (Node.js) and `/api/analyze.py` (Python) endpoints work
 
 ## 🐛 Troubleshooting
 
