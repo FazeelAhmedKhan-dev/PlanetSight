@@ -4,27 +4,32 @@ import os
 
 def get_model_paths():
     """Get model file paths, trying multiple possible locations"""
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    # Try direct files in api directory first (for Vercel)
+    model_path = os.path.join(current_dir, "planetfall_model.pkl")
+    median_path = os.path.join(current_dir, "feature_medians.pkl")
+    
+    if os.path.exists(model_path) and os.path.exists(median_path):
+        return model_path, median_path
+    
+    # Try exoplanet-ml subdirectory in api directory
+    model_path = os.path.join(current_dir, "exoplanet-ml", "planetfall_model.pkl")
+    median_path = os.path.join(current_dir, "exoplanet-ml", "feature_medians.pkl")
+    
+    if os.path.exists(model_path) and os.path.exists(median_path):
+        return model_path, median_path
+    
+    # Try other locations
     base_dirs = [
-        os.path.dirname(os.path.abspath(__file__)),  # api directory
-        os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'),  # project root
-        os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'public'),  # public directory
+        os.path.join(current_dir, '..'),  # project root
+        os.path.join(current_dir, '..', 'public'),  # public directory
     ]
     
     for base_dir in base_dirs:
         model_path = os.path.join(base_dir, "exoplanet-ml", "planetfall_model.pkl")
         median_path = os.path.join(base_dir, "exoplanet-ml", "feature_medians.pkl")
         
-        if os.path.exists(model_path) and os.path.exists(median_path):
-            return model_path, median_path
-    
-    # If not found, try relative paths
-    possible_paths = [
-        ("../exoplanet-ml/planetfall_model.pkl", "../exoplanet-ml/feature_medians.pkl"),
-        ("./exoplanet-ml/planetfall_model.pkl", "./exoplanet-ml/feature_medians.pkl"),
-        ("exoplanet-ml/planetfall_model.pkl", "exoplanet-ml/feature_medians.pkl"),
-    ]
-    
-    for model_path, median_path in possible_paths:
         if os.path.exists(model_path) and os.path.exists(median_path):
             return model_path, median_path
     

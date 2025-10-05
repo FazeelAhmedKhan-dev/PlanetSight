@@ -253,16 +253,23 @@ vercel --prod
 For deployment to other platforms, ensure:
 - Node.js runtime is available
 - Python dependencies are installed
-- Model files are accessible
-- Both `/api/analyze.js` (Node.js) and `/api/analyze.py` (Python) endpoints work
+- Model files are accessible in the `/api` directory
+- The `/api/analyze.py` (Python) endpoint is properly configured
+
+**Note**: The Node.js endpoint (`/api/analyze.js`) has been removed as it's incompatible with serverless platforms like Vercel. The application now uses only the Python API endpoint for predictions.
 
 ## 🐛 Troubleshooting
 
 ### Common Issues
 
+**"Failed to execute Python script" (Vercel)**
+- Ensure model files are in the `/api` directory
+- Check that Python dependencies are properly configured
+- Verify the Python API endpoint is working
+
 **"Could not parse model output"**
 - Ensure Python dependencies are installed
-- Check that model files exist in `exoplanet-ml/`
+- Check that model files exist in `/api` directory
 
 **Server won't start**
 - Verify Node.js version (18+)
