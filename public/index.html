@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlanetSight</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="stars"></div>
+    <div class="twinkle"></div>
+    <header class="header">
+      <h1 class="logo">PlanetSight</h1>
+      <p class="subtitle">AI-assisted identification of exoplanets using transit data</p>
+    </header>
+
+    <main class="container">
+      <section class="panel">
+        <h2>Model</h2>
+        <p class="desc">Train a simple classifier using NASA-like KOI features.</p>
+        <div class="grid">
+          <button id="trainBtn" class="btn">Train Model</button>
+          <div id="trainStatus" class="status">Model not trained</div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Predict</h2>
+        <p class="desc">Enter transit features to estimate if it is a planet.</p>
+        <form id="predictForm" class="form">
+          <div class="field">
+            <label for="koi_period">Orbital Period (days)</label>
+            <input type="number" step="0.001" id="koi_period" required />
+          </div>
+          <div class="field">
+            <label for="koi_prad">Planet Radius (Earth radii)</label>
+            <input type="number" step="0.001" id="koi_prad" required />
+          </div>
+          <div class="field">
+            <label for="koi_depth">Transit Depth (ppm)</label>
+            <input type="number" step="0.001" id="koi_depth" required />
+          </div>
+          <button class="btn" type="submit">Predict</button>
+        </form>
+        <div id="result" class="result hidden"></div>
+      </section>
+
+      <section class="panel info">
+        <h2>About</h2>
+        <p>
+          Kepler, K2, and TESS survey missions observe dips in stellar brightness to detect exoplanets.
+          This demo trains a basic logistic regression on KOI-like features and predicts planet candidacy.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Data inspired by NASA KOI catalogs • Demo only</span>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
